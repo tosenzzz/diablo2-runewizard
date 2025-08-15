@@ -4,16 +4,10 @@
   <table class="rw-Table w-full">
     <thead>
       <tr>
-        <th
-          v-for="col in tableHeads"
-          :key="col.key"
-          class="rw-Table-th cursor-pointer"
-          :class="{
-            'is-sortCol': isSortKey(col.key),
-            'text-left': col.textLeft,
-          }"
-          @click="onSortBy(col.key)"
-        >
+        <th v-for="col in tableHeads" :key="col.key" class="rw-Table-th cursor-pointer" :class="{
+          'is-sortCol': isSortKey(col.key),
+          'text-left': col.textLeft,
+        }" @click="onSortBy(col.key)">
           {{ col.label }}
           <span v-if="isSortKey(col.key) && sortAsc" class="rw-Table-thIcon">
             <icon-arrow-down class="ux-icon ux-icon--fw" />
@@ -47,32 +41,18 @@
           </tr>
         </template>
 
-        <tr
-          class="rw-Table-tr"
-          :class="cssCompleteRuneword(item)"
-          :style="{
-            display: item.filterMatch ? '' : 'none',
-          }"
-        >
+        <tr class="rw-Table-tr" :class="cssCompleteRuneword(item)" :style="{
+          display: item.filterMatch && isActiveRuneWord(item) ? '' : 'none',
+        }">
           <td class="rw-Table-td rw-Table-tdTitle p-0 text-left relative min-w-[10em]">
-            <span
-              class="rw-Table-tdTitleSpan cursor-pointer"
-              @mouseenter="onEnterRuneword($event, item)"
-              @mouseleave="onLeaveRuneword()"
-              @click="onEnterRuneword($event, item)"
-            >{{ item.title }}</span>
+            <span class="rw-Table-tdTitleSpan cursor-pointer" @mouseenter="onEnterRuneword($event, item)"
+              @mouseleave="onLeaveRuneword()" @click="onEnterRuneword($event, item)">{{ item.title }}</span>
             <span v-if="item.ladder" class="rw-Md-ladder" title="Ladder Only">L</span>
-            <span v-if="item.version" class="rw-Table-tdTitlePatch"
-              :class="{
-                'is-new': item.version === envGameVersion
-              }"
-              title="Patch version">{{ item.version }}</span>
+            <span v-if="item.version" class="rw-Table-tdTitlePatch" :class="{
+              'is-new': item.version === envGameVersion
+            }" title="Patch version">{{ item.version }}</span>
 
-            <div
-              v-if="pinnedRunewords.has(item.title)"
-              class="rw-Table-pin is-pinned"
-              @click="onTogglePin(item.title)"
-            >
+            <div v-if="pinnedRunewords.has(item.title)" class="rw-Table-pin is-pinned" @click="onTogglePin(item.title)">
               <icon-check-on class="rw-Table-pinIcon" />
             </div>
             <div v-else class="rw-Table-pin" @click="onTogglePin(item.title)">
@@ -80,34 +60,22 @@
             </div>
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[0])">
-            {{
-              runesData.get(item.runes[0])?.fname
-            }}
+            {{ runesData.get(item.runes[0])?.fname }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[1])">
-            {{
-              runesData.get(item.runes[1])?.fname
-            }}
+            {{ runesData.get(item.runes[1])?.fname }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[2])">
-            {{
-              runesData.get(item.runes[2])?.fname
-            }}
+            {{ runesData.get(item.runes[2])?.fname }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[3])">
-            {{
-              runesData.get(item.runes[3])?.fname
-            }}
+            {{ runesData.get(item.runes[3])?.fname }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[4])">
-            {{
-              runesData.get(item.runes[4])?.fname
-            }}
+            {{ runesData.get(item.runes[4])?.fname }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[5])">
-            {{
-              runesData.get(item.runes[5])?.fname
-            }}
+            {{ runesData.get(item.runes[5])?.fname }}
           </td>
           <td class="rw-Table-td rw-Table-tdType min-w-[10em]" v-html="getTypeCellHtml(item)"></td>
           <td class="rw-Table-td">{{ item.level }}</td>
@@ -258,6 +226,12 @@ export default defineComponent({
   methods: {
     cssActiveRune(runeId: TRuneId) {
       return this.haveRunes[runeId] ? "is-active" : "";
+    },
+
+    isActiveRuneWord(word: TRuneword) {
+      if (!store.state.hideIfNotHave) return true;
+      const ls = Object.keys(this.haveRunes).filter(v => this.haveRunes[v as TRuneId])
+      return ls.length == 0 || ls.some((v) => word.runes.includes(v as TRuneId));
     },
 
     cssCompleteRuneword(word: TRuneword) {

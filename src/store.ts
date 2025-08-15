@@ -1,6 +1,6 @@
 /**
  * Simple store pattern.
- * 
+ *
  *   - handle state across components
  *   - persist the state (eg. selected runes) in local storage
  */
@@ -11,6 +11,7 @@ import { runesIds } from "@/data/runes";
 type TStoreState = {
   haveRunes: { [key in TRuneId]?: boolean };
   pinned: Set<TRunewordId>;
+  hideIfNotHave: boolean;
 };
 
 // user data as stored in browser's localStorage
@@ -25,6 +26,7 @@ const store = {
   state: reactive({
     haveRunes: [],
     pinned: new Set(),
+    hideIfNotHave: true,
   }) as TStoreState,
 
   storage: null as Storage | null,
@@ -64,6 +66,10 @@ const store = {
 
   hasRune(runeId: TRuneId) {
     return this.state.haveRunes[runeId] || false;
+  },
+
+  setHideIfNotHave(value: boolean) {
+    return (this.state.hideIfNotHave = value);
   },
 
   reset() {
