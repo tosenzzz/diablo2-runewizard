@@ -3,7 +3,7 @@
   <img width="600" src="https://user-images.githubusercontent.com/169391/112649013-59306500-8e4a-11eb-8761-5e2df91856fb.png" />
 </p>
 <p align="center">
-  Live site <strong><a href="https://fabd.github.io/diablo2-runewizard">fabd.github.io/diablo2-runewizard</a></strong>
+  Live site <strong><a href="https://tosenzzz.github.io/diablo2-runewizard">tosenzzz.github.io/diablo2-runewizard</a></strong>
 </p>
 
 <p align="center"><em>Runewizard for Diablo II helps you keep track of the runes you have found and what runewords you can make with them.</em></p>
@@ -21,11 +21,11 @@ Should there be any new runewords / updates with _Diablo II Resurrected_, I hope
 
 ## Changelog
 
-See **[Releases](https://github.com/fabd/diablo2-runewizard/releases)** tab for updates.
+See **[Releases](https://github.com/tosenzzz/diablo2-runewizard/releases)** tab for updates.
 
 ## Bugs & Feature Requests
 
-Please report **any bugs or incorrect information** in the **[Issues](https://github.com/fabd/diablo2-runewizard/issues)** tab.
+Please report **any bugs or incorrect information** in the **[Issues](https://github.com/tosenzzz/diablo2-runewizard/issues)** tab.
 
 Feel free to post suggestions as well. If I like an idea, maybe I'll work on it.
 
@@ -46,7 +46,7 @@ If you need help to modify Runewizard for a Diablo II mod (ie. supporting new ru
 Clone the repository, install the dependencies, and start the Vite server:
 
 ```bash
-git clone https://github.com/fabd/diablo2-runewizard.git
+git clone https://github.com/tosenzzz/diablo2-runewizard.git
 npm install
 npm run dev
 ```

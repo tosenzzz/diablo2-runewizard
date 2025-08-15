@@ -30,6 +30,14 @@
                 >Update Notes</a
               >
             </span>
+            <span class="text-lg">
+              <a
+                class="ml-2 underline hover:underline ux-color-link-blue"
+                target="blank"
+                href="https://fabd.github.io/diablo2/"
+                >Diablo 2</a
+              >
+            </span>
           </div>
 
           <div class="flex items-center text-[#514f4a]">
