@@ -81,32 +81,32 @@
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[0])">
             {{
-              item.runes[0]
+              runesData.get(item.runes[0])?.fname
             }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[1])">
             {{
-              item.runes[1]
+              runesData.get(item.runes[1])?.fname
             }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[2])">
             {{
-              item.runes[2]
+              runesData.get(item.runes[2])?.fname
             }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[3])">
             {{
-              item.runes[3]
+              runesData.get(item.runes[3])?.fname
             }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[4])">
             {{
-              item.runes[4]
+              runesData.get(item.runes[4])?.fname
             }}
           </td>
           <td class="rw-Table-td is-rune" :class="cssActiveRune(item.runes[5])">
             {{
-              item.runes[5]
+              runesData.get(item.runes[5])?.fname
             }}
           </td>
           <td class="rw-Table-td rw-Table-tdType min-w-[10em]" v-html="getTypeCellHtml(item)"></td>
@@ -121,6 +121,7 @@
 import { defineComponent, PropType } from "vue";
 
 import itemTypesData from "@/data/item-types";
+import runesData from "@/data/runes";
 import store from "@/store";
 
 import IconArrowUp from "@/icons/IconArrowUp.vue";
@@ -194,6 +195,14 @@ export default defineComponent({
         );
       });
 
+      return map;
+    },
+
+    runesData(): Map<string, TRuneDef> {
+      const map = new Map<string, TRuneDef>();
+      runesData.forEach((rune) => {
+        map.set(rune.name, rune);
+      });
       return map;
     },
 

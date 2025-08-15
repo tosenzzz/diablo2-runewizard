@@ -1,4 +1,5 @@
 <template>
+  <rune-popup ref="runePopup" />
   <div class="relative">
     <div class="flex justify-between items-center mb-2">
       <h2 class="rw-Title-h2 mb-0">Runes</h2>
@@ -21,6 +22,8 @@
             'is-selected': haveRunes[rune.name],
           }"
           @click="onToggleRune(rune.name)"
+          @mouseenter="onEnterRune($event, rune.name)"
+          @mouseleave="onLeaveRune()"
         >
           <span class="mx-auto my-auto">{{ rune.name }}</span>
         </div>
@@ -36,12 +39,16 @@ import runesData, { ERuneTier } from "@/data/runes";
 import store from "@/store";
 
 import IconCancel from "@/icons/IconCancel.vue";
+import RunePopup from "@/components/RunePopup.vue"
+
+type TRunePopup = TVueInstanceOf<typeof RunePopup>;
 
 export default defineComponent({
   name: "Runes",
 
   components: {
     IconCancel,
+    RunePopup
   },
 
   data() {
@@ -67,12 +74,25 @@ export default defineComponent({
 
       return tiers;
     },
+    
+    runePopup(): TRunePopup  {
+      return  this.$refs.runePopup as TRunePopup;
+    },
   },
 
   methods: {
     onClearRunes() {
       store.clearRunes();
       store.saveState();
+    },
+    
+    onEnterRune(ev: Event, rune: string) {
+      if (!ev.target) return;
+      this.runePopup.showRune(rune.toString(), ev.target  as HTMLElement);
+    },
+
+    onLeaveRune() {
+      this.runePopup.setVisible(false);
     },
 
     onToggleRune(runeId: TRuneId) {

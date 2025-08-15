@@ -81,7 +81,7 @@ a { color:var(--color-gold); }
 // pretend component to group layout utils
 .rw-Layout {
   &-rowContainer {
-    @apply max-w-[1100px] pl-8 pr-4;
+    @apply max-w-[1200px] pl-8 pr-4;
   }
 
   &-goldBarSeparator {
@@ -148,6 +148,15 @@ a { color:var(--color-gold); }
 
   &-input::placeholder {
     color: var(--color-gray-dark);
+  }
+
+  &-select {
+    @apply rounded;
+    padding: 0.5rem;
+    background: #000;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold-light);
+    margin-left: 1rem;
   }
 }
 

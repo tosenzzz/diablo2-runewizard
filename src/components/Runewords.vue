@@ -3,6 +3,11 @@
     <div class="rw-Search flex items-center mb-8">
       <label class="text-gold whitespace-nowrap mr-4">{{ "Search" }}</label>
       <input v-model="searchText" type="text" class="rw-Search-input" @input="onSearchInput" />
+      <span class="mr-4"></span>
+      <label class="text-gold whitespace-nowrap">{{ "Version" }}</label>
+      <select v-model="version" class="rw-Search-select" @change="onSearchInput">
+        <option v-for="ver in VerList" :key="ver" :value="ver">{{ ver }}</option>
+      </select>
     </div>
 
     <div>
@@ -14,7 +19,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import runewordsData from "@/data/runewords";
+import runewordsData, {RwVer} from "@/data/runewords";
 
 import RunewordsTable from "@/components/RunewordsTable.vue";
 
@@ -32,21 +37,35 @@ export default defineComponent({
       runewordsList: [] as TRunewordItem[],
 
       searchText: "",
+      version: "LOD",
     };
+  },
+
+  
+  computed: {
+    VerList(): string[] {
+      let tm = Object.keys(RwVer);
+      tm.push("ALL");
+      return tm
+    },
+    Vers(): string[] {
+      return RwVer[this.version];
+    },
   },
 
   created() {
     this.runewordsList = runewordsData.slice() as TRunewordItem[];
-    this.updateFilter(this.searchText);
+    this.updateFilter(this.searchText, this.version);
   },
 
   methods: {
     onSearchInput() {
-      this.updateFilter(this.searchText);
+      this.updateFilter(this.searchText, this.version);
     },
 
 
-    updateFilter(text: string) {
+    updateFilter(text: string, ver: string) {
+      const vList = RwVer[ver] || [];
       const searchTerm = text.toLowerCase();
 
       const matches = (item: TRunewordItem) => {
@@ -54,8 +73,9 @@ export default defineComponent({
         const matchesType = item.ttypes.some((type) => {
           return type.toLowerCase().includes(searchTerm);
         });
+        const matchesVersion = vList.includes(item.version || "");
 
-        return searchTerm === "" || matchesTitle || matchesType;
+        return (ver == "ALL" || matchesVersion) && (searchTerm === "" || matchesTitle || matchesType);
       };
 
       this.runewordsList.forEach((item) => {

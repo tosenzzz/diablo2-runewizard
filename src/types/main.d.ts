@@ -58,6 +58,7 @@ type TRuneId =
 
 type TRuneDef = {
   name: TRuneId;
+  fname: string;
   tier: ERuneTier;
 };
 
@@ -75,6 +76,10 @@ type TRuneword = {
 
 type TRunewordMeta = {
   [runewordId: string]: string;
+};
+
+type RuneMeta = {
+  [runeId: string]: string;
 };
 
 type TRunewordItem = TRuneword & {
