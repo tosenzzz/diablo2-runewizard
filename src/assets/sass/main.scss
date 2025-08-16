@@ -431,6 +431,10 @@ a { color:var(--color-gold); }
     @apply mb-2;
     color: var(--color-gray);
   }
+  &-body .is-title2 {
+    @apply mb-2 mt-4;
+    color: var(--color-gray);
+  }
 
   // format modifiers (numbers) in the item description
   &-body .is-mod {

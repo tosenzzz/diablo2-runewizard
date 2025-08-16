@@ -1,14 +1,9 @@
 <template>
-  <div
-    ref="root"
-    class="rw-RunewordPopup absolute"
-    :style="{
-      visibility: isVisible ? 'visible' : 'hidden',
-      left: unitPx(position.x),
-      top: unitPx(position.y),
-    }"
-    @click="setVisible(false)"
-  >
+  <div ref="root" class="rw-RunewordPopup absolute" :style="{
+    visibility: isVisible ? 'visible' : 'hidden',
+    left: unitPx(position.x),
+    top: unitPx(position.y),
+  }" @click="setVisible(false)">
     <h3 class="rw-RunewordPopup-title">{{ runesDataMap.get(rune)?.fname }}</h3>
     <div class="rw-RunewordPopup-body" v-html="formatBody"></div>
   </div>
@@ -35,7 +30,7 @@ export default defineComponent({
       /** @type { { x: number; y: number }} */
       position: { x: 0, y: 0 },
       /** @type {string} */
-      rune : ""
+      rune: ""
     };
   },
   computed: {
@@ -50,17 +45,18 @@ export default defineComponent({
     formatBody() {
       const rune = this.rune;
       let text =
-        (rune && runesMetaData[rune] ) ||
+        (rune && runesMetaData[rune]) ||
         "--( invalid runeword id )--";
       // remove newlines at beginning and end
       text = text.trim();
       // fix extra spacing caused by newlines after <h4>sections</h4>
       text = text.replace(/<\/h4>\n*/g, "</h4>");
-      // replace newlines by html equivalents
-      text = text.replace(/\n/g, "<br/>");
       // format the mods (numbers) in the item stats
       //   https://regexr.com/66idv
       text = text.replace(/\+?[0-9-]+%?/g, '<span class="is-mod">$&</span>');
+      text = text.replace(/####\s(.*)\n+/g, '<h4 class="is-title2">$1</h4>');
+      // replace newlines by html equivalents
+      text = text.replace(/\n/g, "<br/>");
       return text;
     },
   },
