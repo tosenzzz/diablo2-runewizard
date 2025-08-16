@@ -660,4 +660,18 @@ export const RwVer: { [version: string]: string[] } = {
   RES: ["2.4", "2.6"],
 };
 
+export function ItemTypes() {
+  let ttypes: string[] = [];
+  runewords.forEach((rw) => {
+    if (rw.ttypes) {
+      rw.ttypes.forEach((tt) => {
+        if (!ttypes.includes(tt)) {
+          ttypes.push(tt);
+        }
+      });
+    }
+  });
+  return ttypes.sort();
+}
+
 export default runewords;

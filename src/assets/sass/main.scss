@@ -159,6 +159,9 @@ a { color:var(--color-gold); }
     margin-left: 1rem;
   }
 }
+.justify-right {
+  justify-content: end;
+}
 
 // --------------------------------------------------------------------
 // the "Help" toggle
